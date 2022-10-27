@@ -1,86 +1,92 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { GetServerSideProps, NextPage } from "next";
+import { CardData } from "../typings/card.types";
+import { fetchContent } from "../lib/fetchContent";
+import TopBanner from "../components/TopBanner/TopBanner";
+import { Fragment, useEffect, useState } from "react";
+import ContentRow from "../components/ContentRow/ContentRow";
+import { useSession, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const Home: NextPage = () => {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
+interface Props {
+  trending: CardData[];
+  netflixOriginal: CardData[];
+  upcomingMovie: CardData[];
+  popularMovie: CardData[];
+  topRatedMovie: CardData[];
+  popularTV: CardData[];
+  topRatedTV: CardData[];
 }
 
-export default Home
+const Home = ({
+  trending,
+  netflixOriginal,
+  upcomingMovie,
+  popularMovie,
+  topRatedMovie,
+  popularTV,
+  topRatedTV,
+}: Props) => {
+  //console.log("popular movie: ", popularMovie);
+  const { data: session } = useSession();
+  console.log("home page session: ", session);
+  // if no session, push back to login page
+  //const router = useRouter();
+
+  const [backgroundImage, setBackgroundImage] = useState<CardData>();
+  useEffect(() => {
+    const trendLen = trending.length;
+    const randomTrendNum = Math.floor(Math.random() * trendLen);
+    setBackgroundImage(trending[randomTrendNum]);
+  }, []);
+
+  return (
+    <Fragment>
+      <div className="">
+        <TopBanner background={backgroundImage || trending[0]} />
+        <div className="px-6">
+          <ContentRow title="Trending" content={trending} />
+          <ContentRow title="Netflix Original" content={netflixOriginal} />
+          <ContentRow title="Upcoming Movie" content={upcomingMovie} />
+          <ContentRow title="Popular Movie" content={popularMovie} />
+          <ContentRow title="Top Rated Movie" content={topRatedMovie} />
+          <ContentRow title="Popular TV" content={popularTV} />
+          <ContentRow title="Top Rated TV" content={topRatedTV} />
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  /*const session = await getSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }*/
+  const trending = await fetchContent("fetchTrending");
+  const netflixOriginal = await fetchContent("fetchNetflixOriginal");
+  const upcomingMovie = await fetchContent("fetchUpcomingMovie");
+  const popularMovie = await fetchContent("fetchPopularMovie");
+  const topRatedMovie = await fetchContent("fetchTopRatedMovie");
+  const popularTV = await fetchContent("fetchPopularTV");
+  const topRatedTV = await fetchContent("fetchTopRatedTV");
+  //console.log("popular movie: ", popularMovie);
+  return {
+    props: {
+      trending,
+      netflixOriginal,
+      upcomingMovie,
+      popularMovie,
+      topRatedMovie,
+      popularTV,
+      topRatedTV,
+    },
+  };
+};
