@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
-function Header() {
+interface Props {
+  title: string;
+}
+
+function Header({ title }: Props) {
   const { data: session } = useSession();
   const [changeNavColor, setChangeNavColor] = useState(false);
 
@@ -23,10 +27,14 @@ function Header() {
       <div className="flex justify-between pt-4">
         <div className="flex space-x-2 pl-[15px]">
           <Bars3Icon className="text-white h-8" />
-          <img
-            className="h-8 pt-2"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png"
-          />
+          {title === "Home" ? (
+            <img
+              className="h-8 pt-2"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png"
+            />
+          ) : (
+            <h3 className="text-white h-8 text-3xl font-bold">{title}</h3>
+          )}
         </div>
 
         <button
