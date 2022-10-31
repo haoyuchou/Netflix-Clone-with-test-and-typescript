@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import Menu from "../Hamburger Menu/Menu/Menu";
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 function Header({ title }: Props) {
   const { data: session } = useSession();
   const [changeNavColor, setChangeNavColor] = useState(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -24,9 +26,20 @@ function Header({ title }: Props) {
       className="fixed top-0 bg-transparent h-20 w-screen"
       style={{ backgroundColor }}
     >
+      <Menu
+        open={menuIsOpen}
+        onClick={() => {
+          setMenuIsOpen((cur) => !cur);
+        }}
+      />
       <div className="flex justify-between pt-4">
         <div className="flex space-x-2 pl-[15px]">
-          <Bars3Icon className="text-white h-8" />
+          <Bars3Icon
+            className="text-white h-8"
+            onClick={() => {
+              setMenuIsOpen((cur) => !cur);
+            }}
+          />
           {title === "Home" ? (
             <img
               className="h-8 pt-2"

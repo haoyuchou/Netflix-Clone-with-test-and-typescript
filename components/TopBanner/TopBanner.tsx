@@ -17,15 +17,15 @@ function TopBanner(props: Props) {
       }}
       className="h-[600px] bg-cover bg-center object-contain"
     >
-      <Header title="Home"/>
+      <Header title="Home" />
       <div className="max-w-[400px] pt-[125px] pl-[30px] text-left">
         <p className="text-white font-bold text-3xl">{background.name}</p>
 
         <div className="flex pt-[50px] space-x-3">
-          <button className="bg-gray-800 border-b text-white px-5 py-1 cursor-pointer rounded-full shadow-lg opacity-70">
+          <button className="bg-gray-800 border-b text-white px-5 py-1 cursor-pointer rounded-full shadow-lg ">
             Play
           </button>
-          <button className="bg-gray-800 border-b text-white px-5 py-1 cursor-pointer rounded-full shadow-lg opacity-70">
+          <button className="bg-gray-800 border-b text-white px-5 py-1 cursor-pointer rounded-full shadow-lg ">
             Add to list
           </button>
         </div>
