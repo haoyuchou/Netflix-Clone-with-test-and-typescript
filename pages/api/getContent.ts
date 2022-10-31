@@ -45,6 +45,18 @@ export default async function handler(
     case "fetchRomanceMovie":
       response = await fetch(requests.fetchRomanceMovie);
       break;
+    case "fetchActionTV":
+      response = await fetch(requests.fetchActionTV);
+      break;
+    case "fetchAnimationTV":
+      response = await fetch(requests.fetchAnimationTV);
+      break;
+    case "fetchDramaTV":
+      response = await fetch(requests.fetchDramaTV);
+      break;
+    case "fetchDocumentaryTV":
+      response = await fetch(requests.fetchDocumentaryTV);
+      break;
     default:
       response = await fetch(requests.fetchTrending);
   }
