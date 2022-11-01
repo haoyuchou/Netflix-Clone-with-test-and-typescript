@@ -7,7 +7,7 @@ import ContentRow from "../components/ContentRow/ContentRow";
 import { useSession, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-interface Props {
+export interface Props {
   trending: CardData[];
   netflixOriginal: CardData[];
   upcomingMovie: CardData[];
@@ -26,9 +26,9 @@ const Home = ({
   popularTV,
   topRatedTV,
 }: Props) => {
-  //console.log("popular movie: ", popularMovie);
+  console.log("top rated movie: ", topRatedMovie);
   const { data: session } = useSession();
-  console.log("home page session: ", session);
+  //console.log("home page session: ", session);
   // if no session, push back to login page
   //const router = useRouter();
 

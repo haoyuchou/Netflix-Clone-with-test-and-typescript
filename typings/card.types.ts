@@ -6,6 +6,6 @@ export type CardData = {
   posterPath: string;
   myList?: boolean;
   continueWatch?: boolean;
-  id: string;
+  id: number;
   overview: string;
 };

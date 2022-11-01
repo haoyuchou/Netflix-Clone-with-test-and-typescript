@@ -1,7 +1,7 @@
 import React from "react";
 import { CardData } from "../../typings/card.types";
 
-interface Props {
+export interface Props {
   content: CardData[];
   title: string
 }
@@ -14,7 +14,7 @@ function ContentRow({ content, title }: Props) {
         {content.map((video) => {
           //console.log("Video: ",video)
           return (
-            <img className="h-54 hover:scale-110 transition duration-150 ease-out" src={`https://image.tmdb.org/t/p/w185${video.posterPath}`} key={video.id} />
+            <img className="h-54 hover:scale-110 transition duration-150 ease-out" src={`https://image.tmdb.org/t/p/w185${video.posterPath}`} key={video.id} alt={`${video.name} image`} />
           );
         })}
       </div>
