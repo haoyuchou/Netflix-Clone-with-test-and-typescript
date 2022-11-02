@@ -33,7 +33,7 @@ function Header({ title }: Props) {
         }}
       />
       <div className="flex justify-between pt-4">
-        <div className="flex space-x-2 pl-[15px]">
+        <div className="flex space-x-2 pl-[15px] max-h-8">
           <Bars3Icon
             className="text-white h-8"
             onClick={() => {
@@ -44,6 +44,7 @@ function Header({ title }: Props) {
             <img
               className="h-8 pt-2"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png"
+              alt="Netflix"
             />
           ) : (
             <h3 className="text-white h-8 text-3xl font-bold">{title}</h3>

@@ -26,9 +26,9 @@ const Home = ({
   popularTV,
   topRatedTV,
 }: Props) => {
-  console.log("top rated movie: ", topRatedMovie);
+  console.log("trending: ", trending);
   const { data: session } = useSession();
-  //console.log("home page session: ", session);
+  console.log("home page session: ", session);
   // if no session, push back to login page
   //const router = useRouter();
 

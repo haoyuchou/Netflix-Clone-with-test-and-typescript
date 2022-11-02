@@ -2,7 +2,7 @@ import React from "react";
 import { CardData } from "../../typings/card.types";
 import Header from "./Header";
 
-interface Props {
+export interface Props {
   background: CardData;
 }
 

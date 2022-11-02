@@ -16,7 +16,7 @@ export const authOptions = {
     async session({ session, token } : {session: any, token: any}) {
       // Send properties to the client, like an access_token from a provider.
       session.user.id = token.id;
-      session.user.token = token;
+      //session.user.token = token;
       return session;
     }}
   // secret: process.env.NEXTAUTH_SECRET

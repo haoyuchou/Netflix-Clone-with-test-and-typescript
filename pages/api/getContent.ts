@@ -33,11 +33,11 @@ export default async function handler(
       break;
     case "fetchPopularTV":
       response = await fetch(requests.fetchPopularTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     case "fetchTopRatedTV":
       response = await fetch(requests.fetchTopRatedTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     case "fetchActionMovie":
       response = await fetch(requests.fetchActionMovie);
@@ -57,19 +57,19 @@ export default async function handler(
       break;
     case "fetchActionTV":
       response = await fetch(requests.fetchActionTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     case "fetchAnimationTV":
       response = await fetch(requests.fetchAnimationTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     case "fetchDramaTV":
       response = await fetch(requests.fetchDramaTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     case "fetchDocumentaryTV":
       response = await fetch(requests.fetchDocumentaryTV);
-      videoType = "TV";
+      videoType = "tv";
       break;
     default:
       response = await fetch(requests.fetchTrending);
