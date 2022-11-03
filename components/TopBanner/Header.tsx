@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import Menu from "../Hamburger Menu/Menu/Menu";
 
-interface Props {
+export interface Props {
   title: string;
 }
 
@@ -39,6 +39,7 @@ function Header({ title }: Props) {
             onClick={() => {
               setMenuIsOpen((cur) => !cur);
             }}
+            title="Bars3Icon"
           />
           {title === "Home" ? (
             <img
