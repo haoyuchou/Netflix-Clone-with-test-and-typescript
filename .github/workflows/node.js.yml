@@ -27,5 +27,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    # install dependencies
+    - run: npm ci
+    # verify that there are no type and build errors
+    - run: npm run build
+    # run unit test
     - run: npm run test
     
