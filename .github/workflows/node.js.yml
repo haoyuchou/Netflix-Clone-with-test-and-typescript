@@ -29,6 +29,7 @@ jobs:
         cache: 'npm'
     # install dependencies
     - run: npm ci
+    - run: npm run build --if-present
     # run unit test
-    - run: npm run test
+    - run: npm test
     
