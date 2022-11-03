@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: "*"
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -29,8 +29,6 @@ jobs:
         cache: 'npm'
     # install dependencies
     - run: npm ci
-    # verify that there are no type and build errors
-    - run: npm run build
     # run unit test
-    - run: npm run test
+    - run: npm test
     
