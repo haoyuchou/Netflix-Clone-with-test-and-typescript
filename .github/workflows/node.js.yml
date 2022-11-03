@@ -31,5 +31,5 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     # run unit test
-    - run: npm run test
+    - run: npm run test:ci
     
