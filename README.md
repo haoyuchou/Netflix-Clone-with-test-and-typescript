@@ -1,11 +1,10 @@
 # The project is built with:
 
-```
-Next.js
-```
-TypeScript for type checking
-Jest for unit testing
-Tailwindcss for styling
+
+Next.js_
+TypeScript for type checking_
+Jest for unit testing_
+Tailwindcss for styling_
 GitHub Actions for Continuous Integration
 
 # Next.js + Tailwind CSS Example
