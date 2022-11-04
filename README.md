@@ -1,3 +1,11 @@
+# The project is built with:
+
+Next.js
+TypeScript for type checking
+Jest for unit testing
+Tailwindcss for styling
+GitHub Actions for Continuous Integration
+
 # Next.js + Tailwind CSS Example
 
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
