@@ -36,3 +36,23 @@ test("show correct header at home page", () => {
   // hamburger button is there
   expect(screen.getByTitle("Bars3Icon")).toBeInTheDocument();
 });
+
+test("show correct header at non-home page", () => {
+  // mock session
+  (useSession as jest.Mock).mockReturnValue({
+    data: {
+      user: {
+        name: "Thomas",
+        email: "t123@gmail.com",
+        image:
+          "https://m.media-amazon.com/images/M/MV5BZjYzZDgzMmYtYjY5Zi00YTk1LThhMDYtNjFlNzM4MTZhYzgyXkEyXkFqcGdeQXVyMTE5NDQ1MzQ3._V1_.jpg",
+      },
+      expires: "2022-12-02T09:25:12.100Z",
+    },
+  });
+
+  // Header component for movie
+  render(<Header {...nonHomePageHeaderProps} />);
+  // show Header title
+  expect(screen.getByText(nonHomePageHeaderProps.title, {selector: "h3"}));
+});
