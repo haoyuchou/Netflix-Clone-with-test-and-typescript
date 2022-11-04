@@ -1,6 +1,8 @@
 # The project is built with:
 
+```
 Next.js
+```
 TypeScript for type checking
 Jest for unit testing
 Tailwindcss for styling
