@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
-interface Props {
+export interface Props {
   open: boolean;
   onClick: () => void;
 }

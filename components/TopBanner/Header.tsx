@@ -15,10 +15,11 @@ function Header({ title }: Props) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", () => {
-        setChangeNavColor(window.pageYOffset > 250);
+        setChangeNavColor(window.pageYOffset > 50);
       });
     }
   }, [changeNavColor]);
+  
 
   const backgroundColor = changeNavColor ? "black" : "transparent";
   return (
