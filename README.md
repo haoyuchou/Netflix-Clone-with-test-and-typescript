@@ -2,6 +2,8 @@
 
 
 ‧ Next.js <br />
+‧ NextAuth for Facebook login <br />
+‧ TMDB API for information <br />
 ‧ TypeScript for type checking <br />
 ‧ Jest for unit testing <br />
 ‧ Tailwindcss for styling <br />
