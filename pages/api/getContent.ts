@@ -21,15 +21,15 @@ export default async function handler(
       break;
     case "fetchUpcomingMovie":
       response = await fetch(requests.fetchUpcomingMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchPopularMovie":
       response = await fetch(requests.fetchPopularMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchTopRatedMovie":
       response = await fetch(requests.fetchTopRatedMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchPopularTV":
       response = await fetch(requests.fetchPopularTV);
@@ -41,19 +41,19 @@ export default async function handler(
       break;
     case "fetchActionMovie":
       response = await fetch(requests.fetchActionMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchAnimationMovie":
       response = await fetch(requests.fetchAnimationMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchDramaMovie":
       response = await fetch(requests.fetchDramaMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchRomanceMovie":
       response = await fetch(requests.fetchRomanceMovie);
-      videoType = "Movie";
+      videoType = "movie";
       break;
     case "fetchActionTV":
       response = await fetch(requests.fetchActionTV);
@@ -76,21 +76,21 @@ export default async function handler(
   }
 
   const data = await response.json();
-  if (fetchContent === "fetchTopRatedMovie") {
+  /*if (fetchContent === "fetchTopRatedMovie") {
     console.log(data.results);
-  }
+  }*/
   //console.log(typeof(data.results[0]));
   const trending: CardData[] = data.results.map((video: any) => {
     return {
       name: video.title || video.name || video.original_title || "sorry, theres is no name",
       rate: video.vote_average || "sorry, there is no rate",
-      mediaType: videoType || video.media_type || "sorry, there is no type",
+      mediaType: video.media_type || videoType || "sorry, there is no type",
       backdropPath: video.backdrop_path || "sorry, there is no Backdrop",
       posterPath: video.poster_path || "sorry, there is no Poster",
       myList: false,
       continueWatch: false,
       id: video.id, // !!!!!!!!
-      overview: video.overview || "sorry, there is no overview",
+      overview: video.overview || "sorry, there is no overview", 
     };
   });
   res.status(200).json(trending);
