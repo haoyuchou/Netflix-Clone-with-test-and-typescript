@@ -8,7 +8,6 @@ export interface Props {
   title: string;
 }
 
-
 function ContentRow({ content, title }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [modalInfo, setModalInto] = useState<CardData>({
@@ -25,6 +24,7 @@ function ContentRow({ content, title }: Props) {
     const body = document.querySelector("body") as HTMLElement;
     body.style.overflow = showModal ? "hidden" : "auto";
   }, [showModal]);
+
   return (
     <div className="mb-4">
       <h1 className="text-white font-semibold text-3xl pb-4">{title}</h1>
@@ -55,7 +55,13 @@ function ContentRow({ content, title }: Props) {
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
             <VideoModalContent
-              backdropPath={`https://image.tmdb.org/t/p/original${modalInfo?.backdropPath}`}
+              name={modalInfo.name}
+              rate={modalInfo.rate}
+              mediaType={modalInfo.mediaType}
+              backdropPath={modalInfo.backdropPath}
+              posterPath={modalInfo.posterPath}
+              id={modalInfo.id}
+              overview={modalInfo.overview}
             />
           </Modal>
         )}

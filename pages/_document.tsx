@@ -1,11 +1,20 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Html,
+  Head,
+  Main,
+  NextScript,
+} from "next/document";
 
-class MainDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+class MyDocument extends Document {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
 
+    return initialProps;
+  }
   render() {
     return (
       <Html>
@@ -13,7 +22,6 @@ class MainDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {/*Below we add the modal wrapper*/}
           <div id="modal-root"></div>
         </body>
       </Html>
@@ -21,4 +29,4 @@ class MainDocument extends Document {
   }
 }
 
-export default MainDocument;
+export default MyDocument;

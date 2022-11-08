@@ -82,7 +82,7 @@ export default async function handler(
   //console.log(typeof(data.results[0]));
   const trending: CardData[] = data.results.map((video: any) => {
     return {
-      name: video.title || video.name || "sorry, theres is no name",
+      name: video.title || video.name || video.original_title || "sorry, theres is no name",
       rate: video.vote_average || "sorry, there is no rate",
       mediaType: videoType || video.media_type || "sorry, there is no type",
       backdropPath: video.backdrop_path || "sorry, there is no Backdrop",
