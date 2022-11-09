@@ -21,11 +21,8 @@ function VideoModalContent({
   const router = useRouter();
 
   const playHandler = async () => {
-
-    //if (mediaType === "sorry, there is no type") {
-    //  alert("sorry, we don't have this video");
-    //  return;
-    //}
+    // or create another modal for video player
+    
     const res = await fetchYoutube(id);
     console.log(res.youtubeKey);
 

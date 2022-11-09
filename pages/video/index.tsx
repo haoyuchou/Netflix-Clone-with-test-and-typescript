@@ -12,13 +12,16 @@ function index() {
   }, []);
   const router = useRouter();
   const { youtubeKey } = router.query;
+
+  // origin=http://localhost:3000
+
   if (hasWindow) {
     return (
       <div className="h-screen">
         <ReactPlayer
           width="100%"
           height="100%"
-          url={`https://www.youtube.com/watch?v=${youtubeKey}&origin=http://localhost:3000`}
+          url={`https://www.youtube.com/watch?v=${youtubeKey}`}
         />
       </div>
     );

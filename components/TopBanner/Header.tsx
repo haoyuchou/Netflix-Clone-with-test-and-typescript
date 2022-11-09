@@ -11,7 +11,7 @@ function Header({ title }: Props) {
   const { data: session } = useSession();
   const [changeNavColor, setChangeNavColor] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  console.log(title);
+  //console.log(title);
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", () => {
