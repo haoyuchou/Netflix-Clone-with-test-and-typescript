@@ -27,7 +27,7 @@ function index({
   return (
     <div>
       <Header title="Movie" />
-      <div className="px-6 pt-52">
+      <div className="px-6 pt-52 pb-6">
         <ContentRow title="Upcoming Movie" content={upcomingMovie} />
         <ContentRow title="Popular Movie" content={popularMovie} />
         <ContentRow title="Top Rated Movie" content={topRatedMovie} />

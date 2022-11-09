@@ -22,6 +22,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <div id="video-root"></div>
           <div id="modal-root"></div>
         </body>
       </Html>

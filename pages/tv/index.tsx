@@ -27,7 +27,7 @@ function index({
   return (
     <div>
       <Header title="TV Series" />
-      <div className="px-6 pt-52">
+      <div className="px-6 pt-52 pb-6">
         <ContentRow title="Netflix Original" content={netflixOriginal} />
         <ContentRow title="Popular TV" content={popularTV} />
         <ContentRow title="Top Rated TV" content={topRatedTV} />

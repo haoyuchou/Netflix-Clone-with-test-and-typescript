@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/*import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactPlayer from "react-player";
 import { TailSpin } from "react-loader-spinner";
@@ -28,7 +28,6 @@ function index() {
   } else {
     return (
       <div className="h-screen pt-[25%]">
-        {/* Center the loading wrapper */}
 
         <TailSpin
           color="#E50914"
@@ -45,4 +44,13 @@ function index() {
   }
 }
 
-export default index;
+export default index;*/
+import React from 'react'
+
+function index() {
+  return (
+    <div>index</div>
+  )
+}
+
+export default index

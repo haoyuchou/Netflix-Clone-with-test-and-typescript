@@ -43,7 +43,7 @@ const Home = ({
     <Fragment>
       <div className="">
         <TopBanner background={backgroundImage || trending[0]} />
-        <div className="px-6">
+        <div className="px-6 pb-6">
           <ContentRow title="Trending" content={trending} />
           <ContentRow title="Netflix Original" content={netflixOriginal} />
           <ContentRow title="Upcoming Movie" content={upcomingMovie} />

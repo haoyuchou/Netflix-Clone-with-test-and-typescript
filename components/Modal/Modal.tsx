@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 
 export interface Props {
   onClose: () => void;
-  children: any;
+  children?: any;
 }
+
 
 function Modal({ onClose, children }: Props) {
   const [isBrowser, setIsBrowser] = useState(false);

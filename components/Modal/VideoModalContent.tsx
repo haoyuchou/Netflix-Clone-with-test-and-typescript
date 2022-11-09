@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CardData } from "../../typings/card.types";
 import {
   PlayCircleIcon,
@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import { fetchYoutube } from "../../lib/fetchYoutube";
+import VideoPlayer from "./VideoPlayer";
 
 function VideoModalContent({
   backdropPath,
@@ -17,28 +18,39 @@ function VideoModalContent({
   id,
   mediaType,
 }: CardData) {
-  console.log(id, mediaType);
+  //console.log(id, mediaType);
   const router = useRouter();
+  const [youtubeKey, setYoutubeKey] = useState(
+    "sorry, we don't have this video"
+  );
 
   const playHandler = async () => {
     // or create another modal for video player
-    
+
     const res = await fetchYoutube(id);
     console.log(res.youtubeKey);
-
 
     if (res.youtubeKey === "sorry, we don't have this video") {
       alert("sorry, we don't have this video");
       return;
     } else {
-      router.push({
-        pathname: "video",
-        query: {
-          youtubeKey: res.youtubeKey,
-        },
-      });
+      //router.push({
+      //  pathname: "video",
+      //  query: {
+      //    youtubeKey: res.youtubeKey,
+      //  },
+      //});
+      setYoutubeKey(res.youtubeKey);
     }
   };
+
+  useEffect(() => {
+    const body = document.querySelector("body") as HTMLElement;
+
+    body.style.overflow =
+      youtubeKey !== "sorry, we don't have this video" ? "hidden" : "auto";
+  }, [youtubeKey]);
+
   return (
     <div className="">
       <div
@@ -58,8 +70,16 @@ function VideoModalContent({
           onClick={playHandler}
           className="absolute left-[45%] top-[37%] h-12 w-[10%] text-white opacity-40 cursor-pointer"
         />
+        {youtubeKey !== "sorry, we don't have this video" && (
+          <VideoPlayer
+            onClose={() =>
+              setYoutubeKey((prev) => "sorry, we don't have this video")
+            }
+            youtubeKey={youtubeKey}
+          />
+        )}
       </div>
-      <div className="px-12 pt-6">
+      <div className="px-12 py-6">
         <div className="text-white flex space-x-1 items-center mb-6">
           <h1 className="text-xl">{rate}</h1>
           <StarIcon className="h-6 w-6" />
