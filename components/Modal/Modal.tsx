@@ -6,7 +6,6 @@ export interface Props {
   children?: any;
 }
 
-
 function Modal({ onClose, children }: Props) {
   const [isBrowser, setIsBrowser] = useState(false);
   useEffect(() => {
@@ -19,6 +18,7 @@ function Modal({ onClose, children }: Props) {
         {/* Backdrop */}
         {ReactDOM.createPortal(
           <div
+            data-testid="backdrop"
             className="fixed m-0 p-0 top-0 left-0 w-screen h-[100vh] z-30 bg-black-rgba"
             onClick={onClose}
           />,

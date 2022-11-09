@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import ContentRow, { Props } from "../components/ContentRow/ContentRow";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 const defaultProps: Props = {
   content: [
@@ -19,7 +19,7 @@ const defaultProps: Props = {
     },
     {
       name: "The Shawshank Redemption",
-      rate: 8.7,
+      rate: 8.9,
       mediaType: "Movie",
       backdropPath: "/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",
       posterPath: "/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",
@@ -34,11 +34,27 @@ const defaultProps: Props = {
 };
 
 test("show correct genre title and poster", () => {
+  const portalRoot = document.createElement("div");
+  portalRoot.setAttribute("id", "modal-root");
+  document.body.appendChild(portalRoot);
+
   render(<ContentRow {...defaultProps} />);
   const image = screen.getByAltText("The Godfather image") as HTMLImageElement;
   // Check genre title
   expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
   // check image is there
-  expect(image.src).toEqual(`https://image.tmdb.org/t/p/w185${defaultProps.content[0].posterPath}`)
+  expect(image.src).toEqual(
+    `https://image.tmdb.org/t/p/w185${defaultProps.content[0].posterPath}`
+  );
   expect(screen.getByAltText("The Godfather image")).toBeInTheDocument();
+  // expect when click video, the modal show
+  fireEvent.click(image);
+  //screen.debug()
+  expect(screen.getByText(defaultProps.content[0].rate, {selector: "h1"}));
+
+  const backdrop = screen.getByTestId("backdrop") as HTMLDivElement;
+  // modal disappear when click backdrop
+  fireEvent.click(backdrop);
+  // screen.debug();
+  expect(screen.queryByText(defaultProps.content[0].rate, {selector: "h1"})).toBeNull();
 });

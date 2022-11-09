@@ -12,6 +12,7 @@ function TopBanner(props: Props) {
 
   return (
     <div
+      data-testid="top-banner"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)), url(https://image.tmdb.org/t/p/original${background.backdropPath})`,
       }}

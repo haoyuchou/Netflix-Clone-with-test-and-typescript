@@ -34,6 +34,8 @@ test("show correct top banner", async () => {
     },
   });
   render(<TopBanner {...defaultProps} />);
+  // background image is render correctly
+  expect(screen.getByTestId('top-banner')).toHaveStyle(`background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)), url(https://image.tmdb.org/t/p/original${defaultProps.background.backdropPath})`)
   // title is in the banner
   expect(screen.getByText(defaultProps.background.name)).toBeInTheDocument();
   // button is in the banner

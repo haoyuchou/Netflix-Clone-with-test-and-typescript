@@ -6,9 +6,18 @@ import {
   PlusIcon,
   CheckIcon,
 } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
 import { fetchYoutube } from "../../lib/fetchYoutube";
 import VideoPlayer from "./VideoPlayer";
+
+export interface Props {
+  backdropPath: string;
+  name: string;
+  rate: number;
+  overview: string;
+  id: number;
+  mediaType: string;
+  posterPath: string;
+}
 
 function VideoModalContent({
   backdropPath,
@@ -17,16 +26,15 @@ function VideoModalContent({
   overview,
   id,
   mediaType,
-}: CardData) {
-  //console.log(id, mediaType);
-  const router = useRouter();
+  posterPath,
+}: Props) {
+  console.log(id, mediaType, posterPath);
   const [youtubeKey, setYoutubeKey] = useState(
     "sorry, we don't have this video"
   );
 
   const playHandler = async () => {
     // or create another modal for video player
-
     const res = await fetchYoutube(id);
     console.log(res.youtubeKey);
 
@@ -34,12 +42,6 @@ function VideoModalContent({
       alert("sorry, we don't have this video");
       return;
     } else {
-      //router.push({
-      //  pathname: "video",
-      //  query: {
-      //    youtubeKey: res.youtubeKey,
-      //  },
-      //});
       setYoutubeKey(res.youtubeKey);
     }
   };
@@ -54,6 +56,7 @@ function VideoModalContent({
   return (
     <div className="">
       <div
+        data-testid="video-modal-content"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)) ,url(https://image.tmdb.org/t/p/original${backdropPath})`,
           backgroundSize: "cover",
