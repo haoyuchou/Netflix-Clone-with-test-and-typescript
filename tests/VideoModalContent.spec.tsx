@@ -3,8 +3,15 @@ import React from "react";
 import VideoModalContent, {
   Props,
 } from "../components/Modal/VideoModalContent";
-import { getByText, render, screen } from "@testing-library/react";
-import { useSession } from "next-auth/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  act,
+  waitFor,
+} from "@testing-library/react";
+//import fetchYoutube from "../lib/fetchYoutube";
+
 jest.mock("next-auth/react");
 
 const defaultProps: Props = {
@@ -18,25 +25,86 @@ const defaultProps: Props = {
   mediaType: "tv",
 };
 
-test("show correct videoModalContent", () => {
-  // mock session
-  (useSession as jest.Mock).mockReturnValue({
-    data: {
-      user: {
-        name: "Thomas",
-        email: "t123@gmail.com",
-        image:
-          "https://m.media-amazon.com/images/M/MV5BZjYzZDgzMmYtYjY5Zi00YTk1LThhMDYtNjFlNzM4MTZhYzgyXkEyXkFqcGdeQXVyMTE5NDQ1MzQ3._V1_.jpg",
-      },
-      expires: "2022-12-02T09:25:12.100Z",
-    },
+const unmockedFetch = global.fetch;
+
+afterEach(() => {
+  global.fetch = unmockedFetch;
+});
+
+describe("", () => {
+  test("show correct videoModalContent", () => {
+    render(<VideoModalContent {...defaultProps} />);
+    // modal top background image is render correctly
+    expect(screen.getByTestId("video-modal-content")).toHaveStyle(
+      `background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)), url(https://image.tmdb.org/t/p/original${defaultProps.backdropPath})`
+    );
+    // title
+    expect(screen.getByText(defaultProps.name));
+    //screen.debug();
+
+    // get rate
+    expect(screen.getByText(defaultProps.rate, { selector: "h1" }));
+    // my list and continue watch render correctly
+    expect(screen.getByText("My List", { selector: "h1" }));
+    expect(screen.getByText("Continue Watch", { selector: "h1" }));
+    // overview render correcly
+    expect(screen.getByText(defaultProps.overview, { selector: "p" }));
+    // video play icon render correctly
+    expect(screen.getByTitle("playIcon"));
   });
 
-  render(<VideoModalContent {...defaultProps} />);
-  // modal top background image is render correctly
-  expect(screen.getByTestId("video-modal-content")).toHaveStyle(
-    `background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)), url(https://image.tmdb.org/t/p/original${defaultProps.backdropPath})`
-  );
-  // title
-  expect(screen.getByText(defaultProps.name));
+  test("click correct show video, click correct make video disapper", async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ youtubeKey: "PLl99DlL6b4" }),
+      })
+    ) as jest.Mock;
+
+    //for video player portal
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", "video-root");
+    document.body.appendChild(portalRoot);
+
+    render(<VideoModalContent {...defaultProps} />);
+
+    const playIcon = await screen.findByTitle("playIcon");
+    // click icon, the video modal show
+    fireEvent.click(playIcon);
+    await waitFor(() => {
+      expect(screen.getByTestId("leave-icon"));
+    });
+
+    // click leave-icon, the video modal is gone
+    fireEvent.click(screen.getByTestId("leave-icon"));
+    await waitFor(() => {
+      const leaveIcon = screen.queryByTestId("leave-icon");
+      expect(leaveIcon).not.toBeInTheDocument();
+    });
+  });
+
+  test("alert when don't have video link", async () => {
+    const alertMock = jest.spyOn(window, "alert").mockImplementation();
+
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () =>
+          Promise.resolve({ youtubeKey: "sorry, we don't have this video" }),
+      })
+    ) as jest.Mock;
+
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", "video-root");
+    document.body.appendChild(portalRoot);
+
+    render(<VideoModalContent {...defaultProps} />);
+
+    const playIcon = await screen.findByTitle("playIcon");
+    // click icon, the video modal show
+    fireEvent.click(playIcon);
+
+    waitFor(() => {
+      expect(alertMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });
+

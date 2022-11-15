@@ -33,7 +33,7 @@ const defaultProps: Props = {
   title: "Top Rated Movie",
 };
 
-test("show correct genre title and poster", () => {
+test("show correct genre title, poster, modal show and disappear correctly ", () => {
   const portalRoot = document.createElement("div");
   portalRoot.setAttribute("id", "modal-root");
   document.body.appendChild(portalRoot);
@@ -47,6 +47,8 @@ test("show correct genre title and poster", () => {
     `https://image.tmdb.org/t/p/w185${defaultProps.content[0].posterPath}`
   );
   expect(screen.getByAltText("The Godfather image")).toBeInTheDocument();
+  
+  
   // expect when click video, the modal show
   fireEvent.click(image);
   //screen.debug()

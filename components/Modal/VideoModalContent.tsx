@@ -70,6 +70,7 @@ function VideoModalContent({
         </h1>
 
         <PlayCircleIcon
+          title="playIcon"
           onClick={playHandler}
           className="absolute left-[45%] top-[37%] h-12 w-[10%] text-white opacity-40 cursor-pointer"
         />
