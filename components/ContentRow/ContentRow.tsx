@@ -30,27 +30,33 @@ function ContentRow({ content, title }: Props) {
       <h1 className="text-white font-semibold text-3xl pb-4">{title}</h1>
       <div className="flex overflow-x-scroll overflow-y-hidden space-x-5 ">
         {content.map((video) => {
-          //console.log("Video: ",video)
-          return (
-            <img
-              onClick={() => {
-                setShowModal(true);
-                setModalInto({
-                  name: video.name,
-                  rate: video.rate,
-                  mediaType: video.mediaType,
-                  backdropPath: video.backdropPath,
-                  posterPath: video.posterPath,
-                  id: video.id,
-                  overview: video.overview,
-                });
-              }}
-              className="h-54 hover:scale-110 transition duration-150 ease-out"
-              src={`https://image.tmdb.org/t/p/w185${video.posterPath}`}
-              key={video.id}
-              alt={`${video.name} image`}
-            />
-          );
+          if (
+            video.backdropPath === "sorry, there is no Backdrop" ||
+            video.posterPath === "sorry, there is no Poster"
+          ) {
+            return;
+          } else {
+            return (
+              <img
+                onClick={() => {
+                  setShowModal(true);
+                  setModalInto({
+                    name: video.name,
+                    rate: video.rate,
+                    mediaType: video.mediaType,
+                    backdropPath: video.backdropPath,
+                    posterPath: video.posterPath,
+                    id: video.id,
+                    overview: video.overview,
+                  });
+                }}
+                className="h-54 hover:scale-110 transition duration-150 ease-out"
+                src={`https://image.tmdb.org/t/p/w185${video.posterPath}`}
+                key={video.id}
+                alt={`${video.name} image`}
+              />
+            );
+          }
         })}
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>

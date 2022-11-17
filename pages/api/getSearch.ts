@@ -8,16 +8,26 @@ export default async function handler(
 ) {
   const { keyword, video_type } = req.query;
 
-  console.log(keyword);
+  //console.log(keyword);
 
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/${video_type}?api_key=${process.env.API_KEY}&language=en-US&query=${keyword}&page=1`
     );
     const data = await response.json();
-    let movieResult;
+    let movieResult: CardData[];
     if (data.results.length === 0) {
-      movieResult = "sorry, there is no match found";
+      movieResult = [
+        {
+          name: `sorry, there is no ${video_type} match found`,
+          rate: 0,
+          mediaType: video_type as string,
+          backdropPath: "",
+          posterPath: "",
+          overview: "",
+          id: 0,
+        },
+      ];
     } else {
       movieResult = data.results.map((video: any) => {
         return {
@@ -28,7 +38,7 @@ export default async function handler(
             video.original_name ||
             "sorry, theres is no name",
           rate: video.vote_average || "sorry, there is no rate",
-          mediaType: "movie",
+          mediaType: video_type,
           backdropPath: video.backdrop_path || "sorry, there is no Backdrop",
           posterPath: video.poster_path || "sorry, there is no Poster",
           myList: false,
@@ -39,7 +49,7 @@ export default async function handler(
       });
     }
 
-    console.log(movieResult);
+    //console.log(movieResult);
     res.status(200).json(movieResult);
   } catch (error) {
     res.json(error);
