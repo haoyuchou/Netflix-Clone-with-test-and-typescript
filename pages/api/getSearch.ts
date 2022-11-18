@@ -19,7 +19,7 @@ export default async function handler(
     if (data.results.length === 0) {
       movieResult = [
         {
-          name: `sorry, there is no ${video_type} match found`,
+          name: `sorry, there is no match found`,
           rate: 0,
           mediaType: video_type as string,
           backdropPath: "",
@@ -30,6 +30,10 @@ export default async function handler(
       ];
     } else {
       movieResult = data.results.map((video: any) => {
+        if (!video.backdrop_path) {
+          // only return video with backdrop_path
+          return;
+        }
         return {
           name:
             video.title ||
@@ -39,7 +43,7 @@ export default async function handler(
             "sorry, theres is no name",
           rate: video.vote_average || "sorry, there is no rate",
           mediaType: video_type,
-          backdropPath: video.backdrop_path || "sorry, there is no Backdrop",
+          backdropPath: video.backdrop_path,
           posterPath: video.poster_path || "sorry, there is no Poster",
           myList: false,
           continueWatch: false,

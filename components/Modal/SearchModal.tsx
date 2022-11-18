@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import useDebounce from "../../hooks/useDebounce";
 import { fetchSearch } from "../../lib/fetchSearch";
 import { CardData } from "../../typings/card.types";
-import { TailSpin } from "react-loader-spinner";
+import SearchLoadingSpinner from "../UI/SearchLoadingSpinner";
 
 export interface Props {
   onClose: () => void;
@@ -11,48 +11,41 @@ export interface Props {
 
 function SearchModal({ onClose }: Props) {
   const [searchValue, setSearchValue] = useState("");
-  const [searchResult, setSearchResult] = useState<CardData[]>();
+  const [searchResult, setSearchResult] = useState<CardData[]>([]);
+  const searchResultFound =
+    searchResult.length &&
+    searchResult[0].name !== "sorry, there is no match found";
   const [isLoading, setIsLoading] = useState(false);
   const searchKeyWord = useDebounce(searchValue, 800);
 
   useEffect(() => {
     setIsLoading((prev) => true);
-    console.log("key word: ", searchKeyWord);
     const fetchMovieTV = async () => {
       const movieData = await fetchSearch(searchKeyWord, "movie");
       const tvData = await fetchSearch(searchKeyWord, "tv");
       console.log("final movie data: ", movieData);
       console.log("final tv data: ", tvData);
 
-      setIsLoading(false);
+      setIsLoading((prev) => false);
       if (
-        movieData[0].name === "sorry, there is no movie match found" &&
-        tvData[0].name === "sorry, there is no tv match found"
+        movieData[0].name === "sorry, there is no match found" &&
+        tvData[0].name === "sorry, there is no match found"
       ) {
         // not any result found
         setSearchResult(movieData);
         return;
-      } else if (movieData[0].name === "sorry, there is no movie match found") {
-        setSearchResult((prev) =>
-          tvData.filter(
-            (video) => video.backdropPath !== "sorry, there is no Backdrop"
-          )
-        );
-      } else if (tvData[0].name === "sorry, there is no tv match found") {
-        setSearchResult((prev) =>
-          movieData.filter(
-            (video) => video.backdropPath !== "sorry, there is no Backdrop"
-          )
+      } else if (movieData[0].name === "sorry, there is no match found") {
+        // only tv result
+        setSearchResult((prev) => tvData);
+      } else if (tvData[0].name === "sorry, there is no match found") {
+        setSearchResult(
+          (prev) =>
+            // only movie result
+            movieData
         );
       } else {
-        const movie = movieData.filter(
-          (video) => video.backdropPath !== "sorry, there is no Backdrop"
-        );
-        const tv = tvData.filter(
-          (video) => video.backdropPath !== "sorry, there is no Backdrop"
-        );
-        const movieTvData = movie.concat(tv);
-        //console.log(movieTvData, "abcde")
+        // both tv and movie result found
+        const movieTvData = movieData.concat(tvData);
         setSearchResult((prev) => movieTvData);
       }
     };
@@ -86,44 +79,28 @@ function SearchModal({ onClose }: Props) {
         </div>
       </div>
 
-      {/* search result */}
-      {searchKeyWord && isLoading === false && (
+      {/* search result found */}
+      {searchKeyWord && !isLoading && searchResultFound && (
         <div className="my-6 mx-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {searchResult?.map((video) => {
-            // console.log("Video backdrop: ", video.backdropPath);
-            if (video.name === "sorry, there is no movie match found") {
-              return;
-            } else {
-              return (
-                <img
-                  className="h-54 hover:scale-110 transition duration-150 ease-out w-80 rounded-lg"
-                  src={`https://image.tmdb.org/t/p/w300${video.backdropPath}`}
-                  key={video.id}
-                  alt={`${video.name} image`}
-                />
-              );
-            }
+            return (
+              <img
+                className="h-54 hover:scale-110 transition duration-150 ease-out w-80 rounded-lg"
+                src={`https://image.tmdb.org/t/p/w300${video.backdropPath}`}
+                key={video.id}
+                alt={`${video.name} image`}
+              />
+            );
           })}
         </div>
       )}
+      {/* search result not found */}
+      {searchKeyWord && !isLoading && !searchResultFound && (
+        <div>{`sorry, can't find match for ${searchKeyWord}`}</div>
+      )}
 
       {/* loading spinner */}
-      {searchKeyWord && isLoading && (
-        <div className="mt-48 flex justify-center">
-          <div className="">
-            <TailSpin
-              color="#E50914"
-              width="50"
-              height="50"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />
-          </div>
-        </div>
-      )}
+      {searchKeyWord && isLoading && <SearchLoadingSpinner />}
     </div>
   );
 }
