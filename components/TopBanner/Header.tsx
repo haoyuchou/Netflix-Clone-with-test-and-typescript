@@ -35,7 +35,7 @@ function Header({ title }: Props) {
   } else {
     return (
       <div
-        className="fixed top-0 bg-transparent h-20 w-screen"
+        className="fixed top-0 bg-transparent h-20 w-screen z-20"
         style={{ backgroundColor }}
       >
         <Menu
@@ -44,10 +44,10 @@ function Header({ title }: Props) {
             setMenuIsOpen((cur) => !cur);
           }}
         />
-        <div className="flex justify-between pt-4">
+        <div className="flex justify-between pt-4 items-center">
           <div className="flex space-x-2 pl-[15px] max-h-8">
             <Bars3Icon
-              className="text-white h-8"
+              className="text-white h-8 cursor-pointer"
               onClick={() => {
                 setMenuIsOpen((cur) => !cur);
               }}
@@ -63,9 +63,9 @@ function Header({ title }: Props) {
               <h3 className="text-white h-8 text-3xl font-bold">{title}</h3>
             )}
           </div>
-          <div className="flex space-x-3 pr-[15px] max-h-8">
+          <div className="flex space-x-3 pr-[20px] max-h-8">
             <MagnifyingGlassIcon
-              className="text-white h-8"
+              className="text-white h-8 cursor-pointer"
               onClick={() => {
                 setSearchModal((prev) => true);
               }}

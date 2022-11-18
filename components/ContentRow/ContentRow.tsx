@@ -39,18 +39,20 @@ function ContentRow({ content, title }: Props) {
             return (
               <img
                 onClick={() => {
-                  setShowModal(true);
-                  setModalInto({
-                    name: video.name,
-                    rate: video.rate,
-                    mediaType: video.mediaType,
-                    backdropPath: video.backdropPath,
-                    posterPath: video.posterPath,
-                    id: video.id,
-                    overview: video.overview,
+                  setShowModal((prev)=>true);
+                  setModalInto((prev) => {
+                    return {
+                      name: video.name,
+                      rate: video.rate,
+                      mediaType: video.mediaType,
+                      backdropPath: video.backdropPath,
+                      posterPath: video.posterPath,
+                      id: video.id,
+                      overview: video.overview,
+                    };
                   });
                 }}
-                className="h-54 hover:scale-110 transition duration-150 ease-out"
+                className="cursor-pointer h-44 md:h-48 lg:h-54 hover:scale-110 transition duration-150 ease-out"
                 src={`https://image.tmdb.org/t/p/w185${video.posterPath}`}
                 key={video.id}
                 alt={`${video.name} image`}
@@ -59,7 +61,7 @@ function ContentRow({ content, title }: Props) {
           }
         })}
         {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
+          <Modal onClose={() => setShowModal((prev)=>false)}>
             <VideoModalContent
               name={modalInfo.name}
               rate={modalInfo.rate}

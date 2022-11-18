@@ -3,7 +3,7 @@ import { TailSpin } from "react-loader-spinner";
 
 function SearchLoadingSpinner() {
   return (
-    <div className="mt-48 flex justify-center">
+    <div className="mt-44 flex justify-center">
       <div className="">
         <TailSpin
           color="#E50914"

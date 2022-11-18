@@ -28,7 +28,7 @@ function VideoModalContent({
   mediaType,
   posterPath,
 }: Props) {
-  console.log(id, mediaType, posterPath);
+  //console.log(id, mediaType, posterPath);
   const [youtubeKey, setYoutubeKey] = useState(
     "sorry, we don't have this video"
   );
@@ -65,7 +65,7 @@ function VideoModalContent({
         }}
         className="h-[200px] md:h-[400px] relative"
       >
-        <h1 className="text-white font-bold text-xl md:text-3xl absolute bottom-6 left-12">
+        <h1 className="text-white font-bold text-xl md:text-3xl absolute bottom-6 left-12 max-w-7xl">
           {name}
         </h1>
 

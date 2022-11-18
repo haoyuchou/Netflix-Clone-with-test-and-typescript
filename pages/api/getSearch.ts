@@ -17,6 +17,7 @@ export default async function handler(
     const data = await response.json();
     let movieResult: CardData[];
     if (data.results.length === 0) {
+      console.log("no result found")
       movieResult = [
         {
           name: `sorry, there is no match found`,
@@ -30,10 +31,6 @@ export default async function handler(
       ];
     } else {
       movieResult = data.results.map((video: any) => {
-        if (!video.backdrop_path) {
-          // only return video with backdrop_path
-          return;
-        }
         return {
           name:
             video.title ||
@@ -43,7 +40,7 @@ export default async function handler(
             "sorry, theres is no name",
           rate: video.vote_average || "sorry, there is no rate",
           mediaType: video_type,
-          backdropPath: video.backdrop_path,
+          backdropPath: video.backdrop_path || "sorry, there is no Backdrop",
           posterPath: video.poster_path || "sorry, there is no Poster",
           myList: false,
           continueWatch: false,
@@ -53,7 +50,13 @@ export default async function handler(
       });
     }
 
-    //console.log(movieResult);
+    movieResult = movieResult.filter(
+      (video) =>
+        video.backdropPath !== "sorry, there is no Backdrop" ||
+        video.name === "sorry, there is no match found"
+    );
+
+    console.log(movieResult);
     res.status(200).json(movieResult);
   } catch (error) {
     res.json(error);
