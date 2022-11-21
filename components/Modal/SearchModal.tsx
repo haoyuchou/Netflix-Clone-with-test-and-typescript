@@ -38,36 +38,12 @@ function SearchModal({ onClose }: Props) {
   useEffect(() => {
     setIsLoading((prev) => true);
     const fetchMovieTV = async () => {
-      const movieData = await fetchSearch(searchKeyWord, "movie");
-      const tvData = await fetchSearch(searchKeyWord, "tv");
-      console.log("final movie data: ", movieData);
-      console.log("final tv data: ", tvData);
-
-      if (
-        movieData[0].name === "sorry, there is no match found" &&
-        tvData[0].name === "sorry, there is no match found"
-      ) {
-        // not any result found
-        setSearchResult(movieData);
-        setIsLoading((prev) => false);
-        return;
-      } else if (movieData[0].name === "sorry, there is no match found") {
-        // only tv result
-        setSearchResult((prev) => tvData);
-        setIsLoading((prev) => false);
-        return;
-      } else if (tvData[0].name === "sorry, there is no match found") {
-        // only movie result
-        setSearchResult((prev) => movieData);
-        setIsLoading((prev) => false);
-        return;
-      } else {
-        // both tv and movie result found
-        const movieTvData = movieData.concat(tvData);
-        setSearchResult((prev) => movieTvData);
-        setIsLoading((prev) => false);
-        return;
-      }
+      // try then and catch on fetchSearch
+      const videoData = await fetchSearch(searchKeyWord);
+      console.log("video data: ", videoData);
+      setSearchResult((prev) => videoData);
+      setIsLoading((prev) => false);
+      return;
     };
 
     if (searchKeyWord !== "") {

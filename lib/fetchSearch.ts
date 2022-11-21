@@ -1,6 +1,6 @@
 import { CardData } from "../typings/card.types";
 
-export const fetchSearch = async (keyword: string, video_type: string) => {
+export const fetchSearch = async (keyword: string) => {
   let query = "";
   const keywordArray = keyword.split(" ");
   // [ 'the', 'avengers' ]
@@ -11,9 +11,9 @@ export const fetchSearch = async (keyword: string, video_type: string) => {
   //console.log(query);
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getSearch?keyword=${query}&video_type=${video_type}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getSearch?keyword=${query}`
   );
-  const result:CardData[] = await res.json();
+  const result: CardData[] = await res.json();
   //console.log("result: ",result);
   return result;
 };
