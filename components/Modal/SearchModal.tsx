@@ -58,7 +58,7 @@ function SearchModal({ onClose }: Props) {
       {/* leave icon and search bar */}
       <div className="max-h-12 pt-3 flex items-center justify-center">
         <div className="absolute left-3">
-          <ArrowLeftIcon className="text-white h-6 md:h-8" onClick={onClose} />
+          <ArrowLeftIcon title="arrowLeftIcon" className="text-white h-6 md:h-8" onClick={onClose} />
         </div>
 
         <div className="flex">

@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import Header, { Props } from "../components/TopBanner/Header";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { useSession } from "next-auth/react";
 jest.mock("next-auth/react");
 const homePageHeaderProps: Props = {
@@ -11,7 +11,7 @@ const nonHomePageHeaderProps: Props = {
   title: "Movie",
 };
 
-test("show correct header at home page", () => {
+test("show correct header at home page", async () => {
   // mock session
   (useSession as jest.Mock).mockReturnValue({
     data: {
@@ -35,6 +35,23 @@ test("show correct header at home page", () => {
   );
   // hamburger button is there
   expect(screen.getByTitle("Bars3Icon")).toBeInTheDocument();
+
+  // magnify icon
+  expect(screen.getByTitle("magnifyIcon")).toBeInTheDocument();
+
+  // click magnify icon
+  const magnifyIcon = await screen.findByTitle("magnifyIcon");
+  fireEvent.click(magnifyIcon);
+  await waitFor(() => {
+    expect(screen.getByTitle("arrowLeftIcon"));
+  });
+
+  // click arrowlefticon to leave
+  const arrowLeftIcon = await screen.findByTitle("arrowLeftIcon");
+  fireEvent.click(arrowLeftIcon);
+  await waitFor(() => {
+    expect(screen.queryByTitle("arrowLeftIcon")).not.toBeInTheDocument();
+  });
 });
 
 test("show correct header at non-home page", () => {
@@ -54,5 +71,5 @@ test("show correct header at non-home page", () => {
   // Header component for movie
   render(<Header {...nonHomePageHeaderProps} />);
   // show Header title
-  expect(screen.getByText(nonHomePageHeaderProps.title, {selector: "h3"}));
+  expect(screen.getByText(nonHomePageHeaderProps.title, { selector: "h3" }));
 });
