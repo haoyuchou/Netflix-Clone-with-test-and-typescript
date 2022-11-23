@@ -6,6 +6,7 @@ import { CardData } from "../../typings/card.types";
 import SearchLoadingSpinner from "../UI/SearchLoadingSpinner";
 import Modal from "./Modal";
 import VideoModalContent from "./VideoModalContent";
+import { useDisableBodyScroll } from "../../hooks/useDisableBodyScroll";
 
 export interface Props {
   onClose: () => void;
@@ -29,6 +30,7 @@ function SearchModal({ onClose }: Props) {
     overview: "sorry, no overview",
   });
   const searchKeyWord = useDebounce(searchValue, 800);
+  useDisableBodyScroll(showModal);
 
   useEffect(() => {
     const body = document.querySelector("body") as HTMLElement;
@@ -58,11 +60,18 @@ function SearchModal({ onClose }: Props) {
       {/* leave icon and search bar */}
       <div className="max-h-12 pt-3 flex items-center justify-center">
         <div className="absolute left-3">
-          <ArrowLeftIcon title="arrowLeftIcon" className="text-white h-6 md:h-8" onClick={onClose} />
+          <ArrowLeftIcon
+            title="arrowLeftIcon"
+            className="text-white h-6 md:h-8"
+            onClick={onClose}
+          />
         </div>
 
         <div className="flex">
-          <MagnifyingGlassIcon className="h-8 text-white mr-1" />
+          <MagnifyingGlassIcon
+            title="MagnifyingGlassIcon"
+            className="h-8 text-white mr-1"
+          />
           <input
             className="flex-grow pl-5 bg-black border-2 border-blue-500 outline-none text-white h-8 w-44 md:w-80"
             type="text"

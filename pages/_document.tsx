@@ -19,11 +19,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
-          <Main />
-          <NextScript />
+        <body className="">
           <div id="video-root"></div>
           <div id="modal-root"></div>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

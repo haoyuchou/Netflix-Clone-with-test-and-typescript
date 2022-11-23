@@ -65,7 +65,7 @@ function Header({ title }: Props) {
           </div>
           <div className="flex space-x-3 pr-[20px] max-h-8">
             <MagnifyingGlassIcon
-              title="magnifyIcon"
+              title="MagnifyingGlassIcon"
               className="text-white h-8 cursor-pointer"
               onClick={() => {
                 setSearchModal((prev) => true);

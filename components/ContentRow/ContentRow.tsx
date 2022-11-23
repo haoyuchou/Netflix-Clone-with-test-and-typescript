@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CardData } from "../../typings/card.types";
 import Modal from "../Modal/Modal";
 import VideoModalContent from "../Modal/VideoModalContent";
+import { useDisableBodyScroll } from "../../hooks/useDisableBodyScroll";
 
 export interface Props {
   content: CardData[];
@@ -19,11 +20,7 @@ function ContentRow({ content, title }: Props) {
     id: 0,
     overview: "sorry, no overview",
   });
-
-  useEffect(() => {
-    const body = document.querySelector("body") as HTMLElement;
-    body.style.overflow = showModal ? "hidden" : "auto";
-  }, [showModal]);
+  useDisableBodyScroll(showModal);
 
   return (
     <div className="mb-4">
@@ -39,7 +36,7 @@ function ContentRow({ content, title }: Props) {
             return (
               <img
                 onClick={() => {
-                  setShowModal((prev)=>true);
+                  setShowModal((prev) => true);
                   setModalInto((prev) => {
                     return {
                       name: video.name,
@@ -52,7 +49,7 @@ function ContentRow({ content, title }: Props) {
                     };
                   });
                 }}
-                className="cursor-pointer h-44 md:h-48 lg:h-54 hover:scale-110 transition duration-150 ease-out"
+                className="cursor-pointer h-44 md:h-48 lg:h-54 hover:scale-110 transition duration-300 ease-out"
                 src={`https://image.tmdb.org/t/p/w185${video.posterPath}`}
                 key={video.id}
                 alt={`${video.name} image`}
@@ -61,7 +58,7 @@ function ContentRow({ content, title }: Props) {
           }
         })}
         {showModal && (
-          <Modal onClose={() => setShowModal((prev)=>false)}>
+          <Modal onClose={() => setShowModal((prev) => false)}>
             <VideoModalContent
               name={modalInfo.name}
               rate={modalInfo.rate}

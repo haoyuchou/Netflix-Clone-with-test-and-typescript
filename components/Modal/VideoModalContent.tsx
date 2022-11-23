@@ -36,7 +36,7 @@ function VideoModalContent({
   const playHandler = async () => {
     // or create another modal for video player
     const res = await fetchYoutube(id);
-    console.log(res.youtubeKey);
+    //console.log(res.youtubeKey);
 
     if (res.youtubeKey === "sorry, we don't have this video") {
       alert("sorry, we don't have this video");

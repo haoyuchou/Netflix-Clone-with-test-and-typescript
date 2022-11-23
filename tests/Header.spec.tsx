@@ -37,10 +37,10 @@ test("show correct header at home page", async () => {
   expect(screen.getByTitle("Bars3Icon")).toBeInTheDocument();
 
   // magnify icon
-  expect(screen.getByTitle("magnifyIcon")).toBeInTheDocument();
+  expect(screen.getByTitle("MagnifyingGlassIcon")).toBeInTheDocument();
 
   // click magnify icon
-  const magnifyIcon = await screen.findByTitle("magnifyIcon");
+  const magnifyIcon = await screen.findByTitle("MagnifyingGlassIcon");
   fireEvent.click(magnifyIcon);
   await waitFor(() => {
     expect(screen.getByTitle("arrowLeftIcon"));
