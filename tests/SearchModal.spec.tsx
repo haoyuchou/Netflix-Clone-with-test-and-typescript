@@ -68,7 +68,7 @@ afterEach(() => {
   global.fetch = unmockedFetch;
 });
 
-configure({ asyncUtilTimeout: 5000 });
+//configure({ asyncUtilTimeout: 5000 });
 
 describe("", () => {
   test("show search icon, place holder, leave icon correct", () => {
