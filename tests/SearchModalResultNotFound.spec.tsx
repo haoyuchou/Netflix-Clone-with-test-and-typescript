@@ -60,7 +60,7 @@ describe("", () => {
     await waitFor(() => {
       // loading spinner disappear
       expect(screen.queryByTestId("tail-spin-loading")).not.toBeInTheDocument();
-    });
+    }, {timeout: 3000});
 
     const resultNotFoundText = await waitFor(() =>
       screen.getByText("sorry, can't find match for randomname", {
