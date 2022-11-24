@@ -1,13 +1,9 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import SearchModel, { Props } from "../components/Modal/SearchModal";
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { CardData } from "../typings/card.types";
+import { configure } from "@testing-library/dom";
 
 const defaultProps: Props = {
   onClose: jest.fn(),
@@ -71,6 +67,8 @@ beforeEach(() => {});
 afterEach(() => {
   global.fetch = unmockedFetch;
 });
+
+configure({ asyncUtilTimeout: 5000 });
 
 describe("", () => {
   test("show search icon, place holder, leave icon correct", () => {
@@ -161,6 +159,5 @@ describe("", () => {
         selector: "h1",
       })
     );
-    
   });
 });
