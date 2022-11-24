@@ -42,7 +42,7 @@ function SearchModal({ onClose }: Props) {
     const fetchMovieTV = async () => {
       // try then and catch on fetchSearch
       const videoData = await fetchSearch(searchKeyWord);
-      console.log("video data: ", videoData);
+      //console.log("video data: ", videoData);
       setSearchResult((prev) => videoData);
       setIsLoading((prev) => false);
       return;
