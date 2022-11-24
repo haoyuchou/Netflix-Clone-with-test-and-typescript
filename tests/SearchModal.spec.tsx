@@ -1,7 +1,13 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import SearchModel, { Props } from "../components/Modal/SearchModal";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { CardData } from "../typings/card.types";
 
 const defaultProps: Props = {
@@ -47,6 +53,18 @@ const mockSearchResult: CardData[] = [
   },
 ];
 
+const mockSearchResultNotFound: CardData[] = [
+  {
+    name: "sorry, there is no match found",
+    rate: 0,
+    mediaType: "nah",
+    backdropPath: "",
+    posterPath: "",
+    overview: "",
+    id: 0,
+  },
+];
+
 const unmockedFetch = global.fetch;
 
 beforeEach(() => {});
@@ -67,7 +85,10 @@ describe("", () => {
   });
 
   test("show loading spinner first, then result if find match", async () => {
-    const setSearch = jest.fn((value) => {});
+    //const setSearch = jest.fn((value) => {});
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", "modal-root");
+    document.body.appendChild(portalRoot);
     render(<SearchModel {...defaultProps} />);
 
     const searchInput = screen.getByPlaceholderText(
@@ -78,7 +99,8 @@ describe("", () => {
 
     // await loading spinner
     await waitFor(() => {
-      expect(screen.getByTestId("loading-spinner-wrapper"));
+      expect(screen.getByTestId("tail-spin-loading"));
+      //screen.debug();
     });
 
     // await fetch, then loading spinner disappear
@@ -92,10 +114,54 @@ describe("", () => {
     });
     await waitFor(() => {
       // loading spinner disappear
-      expect(
-        screen.queryByTestId("loading-spinner-wrapper")
-      ).not.toBeInTheDocument();
+      expect(screen.queryByTestId("tail-spin-loading")).not.toBeInTheDocument();
     });
+    const image = await waitFor(() => {
+      // results backrop show
+      return screen.getByAltText(
+        `${mockSearchResult[0].name} image`
+      ) as HTMLImageElement;
+    });
+    // click results, the modal show
+    fireEvent.click(image);
+    expect(screen.getByText(mockSearchResult[0].name));
   });
-  test("show loading spinner first, then match not found", () => {});
+
+  test("show loading spinner first, then match not found", async () => {
+    render(<SearchModel {...defaultProps} />);
+
+    const searchInput = screen.getByPlaceholderText(
+      "Start your search"
+    ) as HTMLElement;
+
+    fireEvent.change(searchInput, { target: { value: "randomname" } });
+
+    // await loading spinner
+    await waitFor(() => {
+      expect(screen.getByTestId("tail-spin-loading"));
+      //screen.debug();
+    });
+
+    // await fetch, then loading spinner disappear
+    await waitFor(() => {
+      // fetch movie and tv
+      global.fetch = jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.resolve(mockSearchResultNotFound),
+        })
+      ) as jest.Mock;
+    });
+
+    await waitFor(() => {
+      // loading spinner disappear
+      expect(screen.queryByTestId("tail-spin-loading")).not.toBeInTheDocument();
+    });
+
+    const resultNotFoundText = await waitFor(() =>
+      screen.getByText("sorry, can't find match for randomname", {
+        selector: "h1",
+      })
+    );
+    
+  });
 });
