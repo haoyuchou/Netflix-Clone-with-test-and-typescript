@@ -6,7 +6,6 @@ import {
   render,
   screen,
   waitFor,
-  waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { CardData } from "../typings/card.types";
 
