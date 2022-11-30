@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/76396976/204769303-1c0eda4e-541d-4895-
 ‧ NextAuth for Facebook login <br />
 ‧ TMDB API for information <br />
 ‧ TypeScript for type checking <br />
-‧ Jest for unit testing <br />
+‧ Jest and React Testing Library for unit testing <br />
 ‧ Tailwindcss for styling <br />
 ‧ GitHub Actions for Continuous Integration
 
