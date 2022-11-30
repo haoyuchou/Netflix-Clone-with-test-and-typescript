@@ -11,6 +11,20 @@ Netflix Clone is a wen application that mimic Netflix. When going to the website
 
 ## Screenshots
 
+https://user-images.githubusercontent.com/76396976/204764673-1e25fd22-6998-4724-b74b-b78ba1cb2c23.mp4
+
+https://user-images.githubusercontent.com/76396976/204765132-8ace5b29-f9f1-4e27-8ce2-1d6403ce8b50.mp4
+
+https://user-images.githubusercontent.com/76396976/204766739-ad0c7cf3-34d2-4360-9733-a0abcc718819.mp4
+
+https://user-images.githubusercontent.com/76396976/204768122-a48821d8-f26c-49c4-a881-7e1572aa64e9.mp4
+
+https://user-images.githubusercontent.com/76396976/204768368-546aaf0c-3504-4cd5-850e-980dc274ed3f.mp4
+
+https://user-images.githubusercontent.com/76396976/204769303-1c0eda4e-541d-4895-9394-00288163b288.mp4
+
+
+
 ## The project is built with:
 
 
