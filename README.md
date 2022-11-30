@@ -1,6 +1,11 @@
-## Video Demo: [Youtube](https://www.youtube.com/watch?v=j_ZjsM2b0iQQ)
+# Project Title
+Netflix Clone
 
-# The project is built with:
+## Demo Link
+
+[Youtube](https://www.youtube.com/watch?v=j_ZjsM2b0iQQ)
+
+## The project is built with:
 
 
 ‧ Next.js <br />
