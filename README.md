@@ -38,6 +38,10 @@ https://user-images.githubusercontent.com/76396976/204769303-1c0eda4e-541d-4895-
 
 ## Approach
 
+## Status
+
+Netflix Clone is mostly finished. If I had more time, I would add functions to allow user save a list of video they want to watch. In addition, I would also add a function to keep a list of continue watch for users. 
+
 
 ## Getting Started
 
