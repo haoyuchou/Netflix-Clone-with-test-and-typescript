@@ -37,10 +37,11 @@ https://user-images.githubusercontent.com/76396976/204769303-1c0eda4e-541d-4895-
 ‧ GitHub Actions for Continuous Integration
 
 ## Approach
+Before starting this project, I took time to plan the function I want this project to have. Everytime I wrote a new function, I opened a new local branch to write the function. After testing and satisfied with the loca branch, I merged it into the main branch. Everytime push to the main branch, github actions run automated unit test for continuous integration.
 
 ## Status
 
-Netflix Clone is mostly finished. If I had more time, I would add functions to allow user save a list of video they want to watch. In addition, I would also add a function to keep a list of continue watch for users. 
+Netflix Clone is mostly finished. If I had more time, I would add functions to allow user save a list of video they want to watch. In addition, I would also add a function to keep a list of continue watch for users. Both functions will save information by using local storage.
 
 
 ## Getting Started
