@@ -32,9 +32,9 @@ https://user-images.githubusercontent.com/76396976/204769303-1c0eda4e-541d-4895-
 ‧ NextAuth for Facebook login <br />
 ‧ TMDB API for information <br />
 ‧ TypeScript for type checking <br />
-‧ Jest and React Testing Library for unit testing <br />
+‧ Jest and React Testing Library for unit testing [Example 1](https://medium.com/@haoyuchou/react-testing-library-and-jest-in-next-js-1-228704a5a3dc) [Example 2](https://medium.com/@haoyuchou/react-testing-library-and-jest-in-next-js-2-c6fc2417444a)<br />
 ‧ Tailwindcss for styling <br />
-‧ GitHub Actions for Continuous Integration
+‧ GitHub Actions for Continuous Integration [Example](https://medium.com/@haoyuchou/react-testing-library-and-jest-in-next-js-2-c6fc2417444a)
 
 ## Approach
 Before starting this project, I took time to plan the function I want this project to have. Everytime I wrote a new function, I opened a new local branch to write the function. After testing and satisfied with the loca branch, I merged it into the main branch. Everytime push to the main branch, github actions run automated unit test for continuous integration.
