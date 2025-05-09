@@ -4,6 +4,7 @@ Netflix Clone
 ## Demo Link
 
 [Youtube](https://www.youtube.com/watch?v=j_ZjsM2b0iQQ)
+[Deployed](https://netflix-clone-with-test-and-typescript.vercel.app/)
 
 ## About the app
 
